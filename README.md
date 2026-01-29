@@ -32,8 +32,10 @@ Exercises 1.1.-1.2.
 
 ### 15.01
 (part 1b)
-gjorde 1b och 1c började lite på 1d
+gjorde 1b och 1c 
 ### 22.01
+gjorde 1d och första Unicafe exercise
 ### 29.01
+Gjorde klar part 1 och började på med part 2
 ### 05.02
 ### 12.02
