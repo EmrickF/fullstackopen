@@ -1,85 +1,58 @@
-const Header = ({ course }) => <h1>{course}</h1>
+import { useState } from 'react'
 
-const Content = ({ parts }) => (
-  <div>
-    <p>{parts[0].name} {parts[0].exercises}</p>
-    <p>{parts[1].name} {parts[1].exercises}</p>
-    <p>{parts[2].name} {parts[2].exercises}</p>
-  </div>
+const Button = ({ onClick, text }) => (
+  <button onClick={onClick}>{text}</button>
 )
 
-const Total = ({ parts }) => (
-  <p>exercises: {parts[0].exercises + parts[1].exercises + parts[2].exercises}</p>
+const StatisticLine = ({ text, value }) => (
+  <tr>
+    <td>{text}</td>
+    <td>{value}</td>
+  </tr>
 )
+
+const Statistics = ({ good, neutral, bad }) => {
+  const total = good + neutral + bad
+
+  if (total === 0) {
+    return <p>No feedback</p>
+  }
+
+  const average = (good - bad) / total
+  const positive = (good / total) * 100
+
+  return (
+    <table>
+      <tbody>
+        <StatisticLine text="good" value={good} />
+        <StatisticLine text="neutral" value={neutral} />
+        <StatisticLine text="bad" value={bad} />
+        <StatisticLine text="all" value={total} />
+        <StatisticLine text="average" value={average} />
+        <StatisticLine text="positive" value={`${positive} %`} />
+      </tbody>
+    </table>
+  )
+}
 
 const App = () => {
-  const course = 'Half Stack application development'
-
-  const parts = [
-    { name: 'Fundamentals of React', exercises: 10 },
-    { name: 'Using props to pass data', exercises: 7 },
-    { name: 'State of a component', exercises: 14 }
-  ]
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
 
   return (
     <div>
-      <Header course={course} />
-      <Content parts={parts} />
-      <Total parts={parts} />
+      <h1>Give feedback</h1>
+
+      <Button onClick={() => setGood(good + 1)} text="good" />
+      <Button onClick={() => setNeutral(neutral + 1)} text="neutral" />
+      <Button onClick={() => setBad(bad + 1)} text="bad" />
+
+      <h2>stats</h2>
+
+      <Statistics good={good} neutral={neutral} bad={bad} />
     </div>
   )
 }
 
 export default App
-
-// first code
-
-// const Header = (props) => {
-//   return <h1>{props.course}</h1>
-// }
-
-// const Content = (props) => {
-//   return (
-//     <div>
-//       <p>{props.part1.name} {props.part1.exercises}</p>
-//       <p>{props.part2.name} {props.part2.exercises}</p>
-//       <p>{props.part3.name} {props.part3.exercises}</p>
-//     </div>
-//   )
-// }
-
-
-// const Total = (props) => {
-//   return (
-//     <p>exercises: {props.part1.exercises + props.part2.exercises + props.part3.exercises}</p>
-//   )
-// }
-
-// const App = () => {
-//   const course = 'Half Stack application development'
-
-//   const part1 = {
-//     name: 'Fundamentals of React',
-//     exercises: 10
-//   }
-
-//   const part2 = {
-//     name: 'Using props to pass data',
-//     exercises: 7
-//   }
-
-//   const part3 = {
-//     name: 'State of a component',
-//     exercises: 14
-//   }
-
-//   return (
-//     <div>
-//       <Content part1={part1} part2={part2} part3={part3} />
-//        <Header course={course} />
-//       <Total part1={part1} part2={part2} part3={part3} />
-//     </div>
-//   )
-// }
-
-// export default App
